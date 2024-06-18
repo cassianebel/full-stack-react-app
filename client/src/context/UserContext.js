@@ -18,6 +18,7 @@ export const UserProvider = (props) => {
     const response = await fetch('http://localhost:5000/api/users', fetchOptions);
     if (response.status === 200) {
       const user = await response.json();
+      user.password = credentials.password;
       setAuthUser(user);
       return user;
     } else if (response.status === 401) {
