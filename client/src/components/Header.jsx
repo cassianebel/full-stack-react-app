@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../context/UserContext"
 
@@ -7,17 +8,17 @@ const Header = () => {
   return (
     <header>
         <div className="wrap header--flex">
-            <h1 className="header--logo"><a href="/">Courses</a></h1>
+            <h1 className="header--logo"><Link to="/">Courses</Link></h1>
             <nav>
             {authUser === null ?
                 <ul className="header--signedout">
-                    <li><a href="/signup">Sign Up</a></li>
-                    <li><a href="/signin">Sign In</a></li>
+                    <li><Link to="/signup">Sign Up</Link></li>
+                    <li><Link to="/signin">Sign In</Link></li>
                 </ul>
               :
                 <ul className="header--signedin">
                     <li>Welcome, {authUser.firstName}!</li>
-                    <li><a href="/signout" onClick={actions.signOut}>Sign Out</a></li>
+                    <li><Link to="/signout" onClick={actions.signOut}>Sign Out</Link></li>
                 </ul>
             }
             </nav>

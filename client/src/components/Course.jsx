@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
 
 const Course = () => {
@@ -17,9 +17,9 @@ const Course = () => {
     <main>
       <div className="actions--bar">
           <div className="wrap">
-              <a className="button" href={"/courses/" + id + "/update"}>Update Course</a>
-              <a className="button" href="#">Delete Course</a>
-              <a className="button button-secondary" href="/">Return to List</a>
+              <Link className="button" to={"/courses/" + id + "/update"}>Update Course</Link>
+              <Link className="button" to="#">Delete Course</Link>
+              <Link className="button button-secondary" to="/">Return to List</Link>
           </div>
       </div>
             
