@@ -65,7 +65,7 @@ const CreateCourse = () => {
                         <label htmlFor="courseTitle">Course Title</label>
                         <input id="courseTitle" name="courseTitle" type="text" ref={courseTitle} />
 
-                        <p>By {authUser.firstName} {authUser.lastName}</p>
+                        <p>By {authUser ? authUser.firstName : ''} {authUser ? authUser.lastName : ''}</p>
 
                         <label htmlFor="courseDescription">Course Description</label>
                         <textarea id="courseDescription" name="courseDescription" ref={courseDescription}></textarea>

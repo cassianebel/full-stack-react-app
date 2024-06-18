@@ -18,7 +18,7 @@ const Header = () => {
               :
                 <ul className="header--signedin">
                     <li>Welcome, {authUser.firstName}!</li>
-                    <li><Link to="/signout" onClick={actions.signOut}>Sign Out</Link></li>
+                    <li><Link to="/" onClick={actions.signOut}>Sign Out</Link></li>
                 </ul>
             }
             </nav>

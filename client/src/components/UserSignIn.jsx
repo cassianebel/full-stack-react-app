@@ -23,6 +23,7 @@ const UserSignIn = () => {
       const user = await actions.signIn(credentials);
       if (user) {
         console.log('Sign in successful');
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
