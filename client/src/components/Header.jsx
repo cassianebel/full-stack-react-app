@@ -7,7 +7,7 @@ const Header = () => {
             <h1 className="header--logo"><a href="index.html">Courses</a></h1>
             <nav>
                 <ul className="header--signedout">
-                    <li><a href="sign-up.html">Sign Up</a></li>
+                    <li><a href="/signup">Sign Up</a></li>
                     <li><a href="/signin">Sign In</a></li>
                 </ul>
             </nav>
