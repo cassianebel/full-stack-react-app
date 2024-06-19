@@ -2,10 +2,12 @@ import { useContext, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import UserContext from '../context/UserContext';
+import ErrorsDisplay from './ErrorsDisplay';
 
 const UserSignUp = () => {
   const { actions } = useContext(UserContext);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState([]);
 
   const firstName = useRef(null);
   const lastName = useRef(null);
@@ -34,9 +36,10 @@ const UserSignUp = () => {
     if (response.status === 201) {
       actions.signIn({ username: user.emailAddress, password: user.password });
       console.log('Sign up successful');
+      navigate("/");
     } else if (response.status === 400) {
       const data = await response.json();
-      console.log(data.errors);
+      setErrors(data.errors);
     }
   }
 
@@ -49,7 +52,7 @@ const UserSignUp = () => {
     <main>
         <div className="form--centered">
             <h2>Sign Up</h2>
-            
+            <ErrorsDisplay errors={errors} />
             <form onSubmit={handleSubmit}>
                 <label htmlFor="firstName">First Name</label>
                 <input id="firstName" name="firstName" type="text" ref={firstName} />

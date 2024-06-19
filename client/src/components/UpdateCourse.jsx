@@ -2,11 +2,13 @@ import { useContext, useRef, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import UserContext from '../context/UserContext';
+import ErrorsDisplay from './ErrorsDisplay';
 
 const UpdateCourse = () => {
   const { authUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [course, setCourse] = useState([]);
+  const [errors, setErrors] = useState([]);
   let { id } = useParams()
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const UpdateCourse = () => {
       navigate(`/courses/${id}`);
     } else if (response.status === 400) {
       const data = await response.json();
-      console.log(data.errors);
+      setErrors(data.errors);
     }
   }
 
@@ -62,6 +64,7 @@ const UpdateCourse = () => {
     <main>
             <div className="wrap">
                 <h2>Update Course</h2>
+                <ErrorsDisplay errors={errors} />
                 <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>

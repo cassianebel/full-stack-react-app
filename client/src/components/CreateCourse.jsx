@@ -1,11 +1,13 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import UserContext from '../context/UserContext';
+import ErrorsDisplay from './ErrorsDisplay';
 
 const CreateCourse = () => {
   const { authUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState([]);
 
   const courseTitle = useRef(null);
   const courseDescription = useRef(null);
@@ -40,7 +42,7 @@ const CreateCourse = () => {
       navigate("/");
     } else if (response.status === 400) {
       const data = await response.json();
-      console.log(data.errors);
+      setErrors(data.errors);
     }
   }
 
@@ -53,13 +55,7 @@ const CreateCourse = () => {
     <main>
         <div className="wrap">
             <h2>Create Course</h2>
-            <div className="validation--errors">
-                <h3>Validation Errors</h3>
-                <ul>
-                    <li>Please provide a value for "Title"</li>
-                    <li>Please provide a value for "Description"</li>
-                </ul>
-            </div>
+            <ErrorsDisplay errors={errors} />
             <form onSubmit={handleSubmit}>
                 <div className="main--flex">
                     <div>
