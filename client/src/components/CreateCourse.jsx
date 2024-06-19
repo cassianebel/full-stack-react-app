@@ -14,6 +14,7 @@ const CreateCourse = () => {
   const estimatedTime = useRef(null);
   const materialsNeeded = useRef(null);
 
+  // CREATE a new course
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,6 +47,7 @@ const CreateCourse = () => {
     }
   }
 
+  // Cancel course creation
   const handleCancel = (event) => {
     event.preventDefault();
     navigate("/");

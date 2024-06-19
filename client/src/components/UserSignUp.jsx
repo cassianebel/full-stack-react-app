@@ -14,6 +14,7 @@ const UserSignUp = () => {
   const emailAddress = useRef(null);
   const password = useRef(null);
 
+  // SIGN UP new user
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,6 +44,7 @@ const UserSignUp = () => {
     }
   }
 
+  // Cancel sign up
   const handleCancel = (event) => {
     event.preventDefault();
     navigate("/");

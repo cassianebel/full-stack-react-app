@@ -11,6 +11,7 @@ const UpdateCourse = () => {
   const [errors, setErrors] = useState([]);
   let { id } = useParams()
 
+  // GET the course data
   useEffect(() => {
     fetch(`http://localhost:5000/api/courses/${id}`)
       .then(response => response.json())
@@ -23,6 +24,7 @@ const UpdateCourse = () => {
   const estimatedTime = useRef(course.estimatedTime);
   const materialsNeeded = useRef(course.materialsNeeded);
 
+  // UPDATE the course
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -55,6 +57,7 @@ const UpdateCourse = () => {
     }
   }
 
+  // Cancel course update
   const handleCancel = (event) => {
     event.preventDefault();
     navigate("/");

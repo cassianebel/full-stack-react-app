@@ -1,7 +1,6 @@
 import { useContext, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-
 import UserContext from '../context/UserContext';
 
 const UserSignIn = () => {
@@ -11,6 +10,7 @@ const UserSignIn = () => {
   const emailAddress = useRef();
   const password = useRef();
 
+  // SIGN IN the user
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,6 +30,7 @@ const UserSignIn = () => {
     }
   }
 
+  // Cancel sign in
   const handleCancel = (event) => {
     event.preventDefault();
     navigate("/");

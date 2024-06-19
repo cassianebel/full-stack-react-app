@@ -10,6 +10,7 @@ const CourseDetail = () => {
   const navigate = useNavigate();
   let { id } = useParams()
 
+  // GET the course data
   useEffect(() => {
     fetch(`http://localhost:5000/api/courses/${id}`)
       .then(response => response.json())
@@ -17,6 +18,7 @@ const CourseDetail = () => {
       .catch(error => console.error('Error:', error));
   }, []);
 
+  // DELETE the course
   const handleDelete = async () => {
     const encodedCredentials = btoa(`${authUser.email}:${authUser.password}`);
 

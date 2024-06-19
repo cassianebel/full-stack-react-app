@@ -5,6 +5,7 @@ const UserContext = createContext(null);
 export const UserProvider = (props) => {
   const [authUser, setAuthUser] = useState(null);
 
+  // SIGN IN the user
   const signIn = async (credentials) => {
     const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
 
@@ -28,6 +29,7 @@ export const UserProvider = (props) => {
     }
   }
 
+  // SIGN OUT the user
   const signOut = () => {
     setAuthUser(null);
   }
