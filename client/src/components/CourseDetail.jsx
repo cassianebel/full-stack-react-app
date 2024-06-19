@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Markdown from 'react-markdown';
 
-const Course = () => {
+import UserContext from '../context/UserContext';
+
+const CourseDetail = () => {
   const [course, setCourse] = useState([]);
-  let { id} = useParams()
+  const { authUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  let { id } = useParams()
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/courses/${id}`)
@@ -13,12 +17,35 @@ const Course = () => {
       .catch(error => console.error('Error:', error));
   }, []);
 
+  const handleDelete = async () => {
+    const encodedCredentials = btoa(`${authUser.email}:${authUser.password}`);
+
+    const fetchOptions = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": `Basic ${encodedCredentials}`
+      },
+      body: JSON.stringify(course),
+    }
+
+    const response = await fetch(`http://localhost:5000/api/courses/${id}`, fetchOptions);
+    if (response.status === 204) {
+      console.log('course deleted successfully');
+      navigate(`/`);
+    } else if (response.status === 400) {
+      const data = await response.json();
+      console.log(data.errors);
+    }
+
+  }
+
   return (
     <main>
       <div className="actions--bar">
           <div className="wrap">
               <Link className="button" to={"/courses/" + id + "/update"}>Update Course</Link>
-              <Link className="button" to="#">Delete Course</Link>
+              <Link className="button" onClick={handleDelete}>Delete Course</Link>
               <Link className="button button-secondary" to="/">Return to List</Link>
           </div>
       </div>
@@ -50,4 +77,4 @@ const Course = () => {
   )
 }
 
-export default Course
+export default CourseDetail
