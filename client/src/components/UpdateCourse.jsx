@@ -47,13 +47,18 @@ const UpdateCourse = () => {
       body: JSON.stringify(course),
     }
 
-    const response = await fetch(`http://localhost:5000/api/courses/${id}`, fetchOptions);
-    if (response.status === 204) {
-      console.log('course updated successfully');
-      navigate(`/courses/${id}`);
-    } else if (response.status === 400) {
-      const data = await response.json();
-      setErrors(data.errors);
+    try {
+      const response = await fetch(`http://localhost:5000/api/courses/${id}`, fetchOptions);
+      if (response.status === 204) {
+        console.log('course updated successfully');
+        navigate(`/courses/${id}`);
+      } else if (response.status === 400) {
+        const data = await response.json();
+        setErrors(data.errors);
+      }
+    } catch(error) {
+      console.log('Error:', error);
+      navigate('/error');
     }
   }
 
@@ -63,36 +68,44 @@ const UpdateCourse = () => {
     navigate("/");
   }
 
-  return (
-    <main>
-            <div className="wrap">
-                <h2>Update Course</h2>
-                <ErrorsDisplay errors={errors} />
-                <form onSubmit={handleSubmit}>
-                    <div className="main--flex">
-                        <div>
-                            <label htmlFor="courseTitle">Course Title</label>
-                            <input id="courseTitle" name="courseTitle" type="text" defaultValue={course.title} ref={courseTitle}/>
+  // redirect users to the /notfound path if the requested course isn't returned from the REST API
+  if (course === null) {
+    navigate('/notfound');
+  //redirect users to the /forbidden path if the requested course isn't owned by the authenticated user.
+  } else if (authUser && authUser.id !== course.userId) {
+    navigate('/forbidden');
+  } else {
+    return (
+      <main>
+        <div className="wrap">
+            <h2>Update Course</h2>
+            <ErrorsDisplay errors={errors} />
+            <form onSubmit={handleSubmit}>
+                <div className="main--flex">
+                    <div>
+                        <label htmlFor="courseTitle">Course Title</label>
+                        <input id="courseTitle" name="courseTitle" type="text" defaultValue={course.title} ref={courseTitle}/>
 
-                            <p>By Joe Smith</p>
+                        <p>By Joe Smith</p>
 
-                            <label htmlFor="courseDescription">Course Description</label>
-                            <textarea id="courseDescription" name="courseDescription" defaultValue={course.description} ref={courseDescription}></textarea>
-                        </div>
-                        <div>
-                            <label htmlFor="estimatedTime">Estimated Time</label>
-                            <input id="estimatedTime" name="estimatedTime" type="text" defaultValue={course.estimatedTime} ref={estimatedTime}/>
-
-                            <label htmlFor="materialsNeeded">Materials Needed</label>
-                            <textarea id="materialsNeeded" name="materialsNeeded" defaultValue={course.materialsNeeded} ref={materialsNeeded}></textarea>
-                        </div>
+                        <label htmlFor="courseDescription">Course Description</label>
+                        <textarea id="courseDescription" name="courseDescription" defaultValue={course.description} ref={courseDescription}></textarea>
                     </div>
-                    <button className="button" type="submit">Update Course</button>
-                    <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
-                </form>
-            </div>
-        </main>
-  )
+                    <div>
+                        <label htmlFor="estimatedTime">Estimated Time</label>
+                        <input id="estimatedTime" name="estimatedTime" type="text" defaultValue={course.estimatedTime} ref={estimatedTime}/>
+
+                        <label htmlFor="materialsNeeded">Materials Needed</label>
+                        <textarea id="materialsNeeded" name="materialsNeeded" defaultValue={course.materialsNeeded} ref={materialsNeeded}></textarea>
+                    </div>
+                </div>
+                <button className="button" type="submit">Update Course</button>
+                <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
+            </form>
+        </div>
+    </main>
+    )
+  }
 }
 
 export default UpdateCourse

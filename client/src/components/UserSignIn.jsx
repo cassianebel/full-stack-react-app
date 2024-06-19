@@ -27,6 +27,7 @@ const UserSignIn = () => {
       }
     } catch (error) {
       console.error(error);
+      navigate('/error');
     }
   }
 

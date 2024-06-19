@@ -37,13 +37,18 @@ const CreateCourse = () => {
       body: JSON.stringify(course),
     }
 
-    const response = await fetch('http://localhost:5000/api/courses', fetchOptions);
-    if (response.status === 201) {
-      console.log('course created successfully');
-      navigate("/");
-    } else if (response.status === 400) {
-      const data = await response.json();
-      setErrors(data.errors);
+    try {
+      const response = await fetch('http://localhost:5000/api/courses', fetchOptions);
+      if (response.status === 201) {
+        console.log('course created successfully');
+        navigate("/");
+      } else if (response.status === 400) {
+        const data = await response.json();
+        setErrors(data.errors);
+      }
+    } catch(error) {
+      console.log('Error:', error);
+      navigate('/error');
     }
   }
 

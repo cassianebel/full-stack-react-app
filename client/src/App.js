@@ -9,6 +9,9 @@ import CreateCourse from './components/CreateCourse.jsx';
 import UserSignIn from './components/UserSignIn.jsx';
 import UserSignUp from './components/UserSignUp.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import NotFound from './components/NotFound.jsx';
+import Forbidden from './components/Forbidden.jsx';
+import UnhandledError from './components/UnhandledError.jsx';
 
 function App() {
   return (
@@ -23,6 +26,10 @@ function App() {
         </Route>
         <Route path="/signin" element={<UserSignIn />} />
         <Route path="/signup" element={<UserSignUp />} />
+        <Route path="/notfound" element={<NotFound />} />
+        <Route path="/forbidden" element={<Forbidden />} />
+        <Route path="/error" element={<UnhandledError />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

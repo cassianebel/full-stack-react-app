@@ -33,14 +33,19 @@ const UserSignUp = () => {
       body: JSON.stringify(user),
     }
 
-    const response = await fetch('http://localhost:5000/api/users', fetchOptions);
-    if (response.status === 201) {
-      actions.signIn({ username: user.emailAddress, password: user.password });
-      console.log('Sign up successful');
-      navigate("/");
-    } else if (response.status === 400) {
-      const data = await response.json();
-      setErrors(data.errors);
+    try {
+      const response = await fetch('http://localhost:5000/api/users', fetchOptions);
+      if (response.status === 201) {
+        actions.signIn({ username: user.emailAddress, password: user.password });
+        console.log('Sign up successful');
+        navigate("/");
+      } else if (response.status === 400) {
+        const data = await response.json();
+        setErrors(data.errors);
+      }
+    } catch(error) {
+      console.log('Error:', error);
+      navigate('/error');
     }
   }
 
