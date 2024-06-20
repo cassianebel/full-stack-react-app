@@ -17,6 +17,7 @@ const CourseDetail = () => {
       .then(data => setCourse(data))
       .catch(error => {
         console.error('Error:', error)
+        // redirect users to the /error path if there's an error fetching the course data
         navigate('/error');
       });
   }, []);
@@ -24,7 +25,7 @@ const CourseDetail = () => {
   // DELETE the course
   const handleDelete = async () => {
     const encodedCredentials = btoa(`${authUser.email}:${authUser.password}`);
-
+    // DELETE request options
     const fetchOptions = {
       method: "DELETE",
       headers: {
@@ -33,7 +34,7 @@ const CourseDetail = () => {
       },
       body: JSON.stringify(course),
     }
-
+    // DELETE request
     try {
       const response = await fetch(`http://localhost:5000/api/courses/${id}`, fetchOptions);
       if (response.status === 204) {
@@ -45,6 +46,7 @@ const CourseDetail = () => {
       }
     } catch(error) {
       console.log('Error:', error);
+      // redirect users to the /error path if there's an error deleting the course
       navigate('/error');
     }
   }
@@ -54,6 +56,7 @@ const CourseDetail = () => {
   if (!course) {
     navigate('/notfound');
   } else {
+    // render the course detail page
     return (
       <main>
         <div className="actions--bar">

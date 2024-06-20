@@ -10,15 +10,16 @@ export const UserProvider = (props) => {
   // SIGN IN the user
   const signIn = async (credentials) => {
     const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
-
+    // GET request options
     const fetchOptions = {
       method: 'GET',
       headers: {
         Authorization: `Basic ${encodedCredentials}`,
       },
     };
-
+    // GET request
     const response = await fetch('http://localhost:5000/api/users', fetchOptions);
+    // If the user is authenticated, set the authenticated user state
     if (response.status === 200) {
       const user = await response.json();
       user.password = credentials.password;
@@ -32,7 +33,7 @@ export const UserProvider = (props) => {
     }
   }
 
-  // SIGN OUT the user
+  // SIGN OUT the user - remove the authenticated user state and the cookie
   const signOut = () => {
     setAuthUser(null);
     Cookies.remove("authenticatedUser");

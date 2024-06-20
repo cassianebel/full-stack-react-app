@@ -8,7 +8,7 @@ const CreateCourse = () => {
   const { authUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
-
+  // Create refs for the form fields
   const courseTitle = useRef(null);
   const courseDescription = useRef(null);
   const estimatedTime = useRef(null);
@@ -17,7 +17,7 @@ const CreateCourse = () => {
   // CREATE a new course
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // Create a new course object
     const course = {
       title: courseTitle.current.value,
       description: courseDescription.current.value,
@@ -25,9 +25,9 @@ const CreateCourse = () => {
       materialsNeeded: materialsNeeded.current.value,
       userId: authUser.id
     };
-
+    
     const encodedCredentials = btoa(`${authUser.email}:${authUser.password}`);
-
+    // POST request options
     const fetchOptions = {
       method: "POST",
       headers: {
@@ -36,7 +36,7 @@ const CreateCourse = () => {
       },
       body: JSON.stringify(course),
     }
-
+    // POST request
     try {
       const response = await fetch('http://localhost:5000/api/courses', fetchOptions);
       if (response.status === 201) {
@@ -48,6 +48,7 @@ const CreateCourse = () => {
       }
     } catch(error) {
       console.log('Error:', error);
+      // redirect users to the /error path if there's an error creating the course
       navigate('/error');
     }
   }

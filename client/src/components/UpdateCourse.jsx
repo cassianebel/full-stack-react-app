@@ -18,10 +18,12 @@ const UpdateCourse = () => {
       .then(data => setCourse(data))
       .catch(error => {
         console.error('Error:', error)
+        // redirect users to the /error path if there's an error fetching the course data
         navigate('/error');
       });
   }, []);
 
+  // Create refs for the form fields
   const courseTitle = useRef();
   const courseDescription = useRef();
   const estimatedTime = useRef();
@@ -30,7 +32,7 @@ const UpdateCourse = () => {
   // UPDATE the course
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // Create a new course object
     const course = {
       title: courseTitle.current.value,
       description: courseDescription.current.value,
@@ -40,7 +42,7 @@ const UpdateCourse = () => {
     };
 
     const encodedCredentials = btoa(`${authUser.email}:${authUser.password}`);
-
+    // PUT request options
     const fetchOptions = {
       method: "PUT",
       headers: {
@@ -49,7 +51,7 @@ const UpdateCourse = () => {
       },
       body: JSON.stringify(course),
     }
-
+    // PUT request
     try {
       const response = await fetch(`http://localhost:5000/api/courses/${id}`, fetchOptions);
       if (response.status === 204) {
@@ -61,6 +63,7 @@ const UpdateCourse = () => {
       }
     } catch(error) {
       console.log('Error:', error);
+      // redirect users to the /error path if there's an error updating the course
       navigate('/error');
     }
   }
@@ -74,11 +77,11 @@ const UpdateCourse = () => {
   // redirect users to the /notfound path if the requested course isn't returned from the REST API
   if (!course) {
     navigate('/notfound');
-  //redirect users to the /forbidden path if the requested course isn't owned by the authenticated user.
+    //redirect users to the /forbidden path if the requested course isn't owned by the authenticated user.
   } else if (authUser && authUser.id !== course.userId) {
     navigate('/forbidden');
   } else {
-    console.log(course)
+    // render the course update page
     return (
       <main>
         <div className="wrap">

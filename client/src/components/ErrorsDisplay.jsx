@@ -2,7 +2,7 @@ import React from 'react'
 
 const ErrorsDisplay = ({ errors }) => {
   let errorsDisplay = null;
-
+  // if there are errors, display them
   if (errors.length) {
     errorsDisplay = (
       <div className="validation--errors">

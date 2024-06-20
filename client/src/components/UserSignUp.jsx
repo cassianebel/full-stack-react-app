@@ -8,7 +8,7 @@ const UserSignUp = () => {
   const { actions } = useContext(UserContext);
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
-
+  // Create refs for the form fields
   const firstName = useRef(null);
   const lastName = useRef(null);
   const emailAddress = useRef(null);
@@ -17,14 +17,14 @@ const UserSignUp = () => {
   // SIGN UP new user
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // Create a new user object
     const user = {
       firstName: firstName.current.value,
       lastName: lastName.current.value,
       emailAddress: emailAddress.current.value,
       password: password.current.value,
     };
-
+    // POST request options
     const fetchOptions = {
       method: "POST",
       headers: {
@@ -32,9 +32,10 @@ const UserSignUp = () => {
       },
       body: JSON.stringify(user),
     }
-
+    // POST request
     try {
       const response = await fetch('http://localhost:5000/api/users', fetchOptions);
+      // If the user is created successfully, sign in the user
       if (response.status === 201) {
         actions.signIn({ username: user.emailAddress, password: user.password });
         console.log('Sign up successful');
@@ -45,6 +46,7 @@ const UserSignUp = () => {
       }
     } catch(error) {
       console.log('Error:', error);
+      // redirect users to the /error path if there's an error signing up
       navigate('/error');
     }
   }

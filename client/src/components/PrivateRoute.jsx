@@ -6,7 +6,7 @@ import UserContext from '../context/UserContext';
 const PrivateRoute = () => {
   const { authUser } = useContext(UserContext);
   const location = useLocation();
-
+  // if the user is authenticated, render the child components
   if (authUser) {
     return <Outlet />
   } else {
