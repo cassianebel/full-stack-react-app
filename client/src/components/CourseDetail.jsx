@@ -15,7 +15,10 @@ const CourseDetail = () => {
     fetch(`http://localhost:5000/api/courses/${id}`)
       .then(response => response.json())
       .then(data => setCourse(data))
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+        console.error('Error:', error)
+        navigate('/error');
+      });
   }, []);
 
   // DELETE the course
@@ -48,7 +51,7 @@ const CourseDetail = () => {
 
 
   // redirect users to the /notfound path if the requested course isn't returned from the REST API
-  if (course === null) {
+  if (!course) {
     navigate('/notfound');
   } else {
     return (

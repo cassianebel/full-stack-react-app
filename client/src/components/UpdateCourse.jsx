@@ -16,13 +16,16 @@ const UpdateCourse = () => {
     fetch(`http://localhost:5000/api/courses/${id}`)
       .then(response => response.json())
       .then(data => setCourse(data))
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+        console.error('Error:', error)
+        navigate('/error');
+      });
   }, []);
 
-  const courseTitle = useRef(course.title);
-  const courseDescription = useRef(course.description);
-  const estimatedTime = useRef(course.estimatedTime);
-  const materialsNeeded = useRef(course.materialsNeeded);
+  const courseTitle = useRef();
+  const courseDescription = useRef();
+  const estimatedTime = useRef();
+  const materialsNeeded = useRef();
 
   // UPDATE the course
   const handleSubmit = async (e) => {
@@ -69,12 +72,13 @@ const UpdateCourse = () => {
   }
 
   // redirect users to the /notfound path if the requested course isn't returned from the REST API
-  if (course === null) {
+  if (!course) {
     navigate('/notfound');
   //redirect users to the /forbidden path if the requested course isn't owned by the authenticated user.
   } else if (authUser && authUser.id !== course.userId) {
     navigate('/forbidden');
   } else {
+    console.log(course)
     return (
       <main>
         <div className="wrap">

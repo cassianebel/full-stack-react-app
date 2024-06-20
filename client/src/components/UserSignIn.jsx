@@ -29,7 +29,6 @@ const UserSignIn = () => {
       const user = await actions.signIn(credentials);
       if (user) {
         console.log('Sign in successful');
-        console.log(location.state);
         navigate(from);
       }
     } catch (error) {
