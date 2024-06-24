@@ -19,7 +19,7 @@ const CourseDetail = () => {
         console.error('Error:', error)
         // redirect users to the /error path if there's an error fetching the course data
         navigate('/error');
-      });
+      }); // eslint-disable-next-line
   }, []);
 
   // DELETE the course
@@ -78,7 +78,7 @@ const CourseDetail = () => {
                     <div>
                         <h3 className="course--detail--title">Course</h3>
                         <h4 className="course--name">{course.title}</h4>
-                        <p>By </p>
+                        <p>By {course?.User?.firstName} {course?.User?.lastName}</p>
 
                         <Markdown>{course.description}</Markdown>
                     </div>

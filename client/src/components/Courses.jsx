@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
+  const navigate = useNavigate();
 
   // GET list of courses
   useEffect(() => {
     fetch('http://localhost:5000/api/courses')
       .then(response => response.json())
       .then(data => setCourses(data))
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+        console.error('Error:', error)
+        // redirect users to the /error path if there's an error fetching the course data
+        navigate('/error');
+      }); // eslint-disable-next-line
   }, []);
 
   return (

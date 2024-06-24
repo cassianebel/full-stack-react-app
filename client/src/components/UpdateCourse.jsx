@@ -20,7 +20,7 @@ const UpdateCourse = () => {
         console.error('Error:', error)
         // redirect users to the /error path if there's an error fetching the course data
         navigate('/error');
-      });
+      }); // eslint-disable-next-line
   }, []);
 
   // Create refs for the form fields
