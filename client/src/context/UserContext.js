@@ -18,7 +18,7 @@ export const UserProvider = (props) => {
       },
     };
     // GET request
-    const response = await fetch('http://localhost:5000/api/users', fetchOptions);
+    const response = await fetch('https://full-stack-react-app-production-13be.up.railway.app/api/users', fetchOptions);
     // If the user is authenticated, set the authenticated user state
     if (response.status === 200) {
       const user = await response.json();
