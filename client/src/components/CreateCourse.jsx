@@ -38,7 +38,7 @@ const CreateCourse = () => {
     }
     // POST request
     try {
-      const response = await fetch('http://full-stack-react-app-production-13be.up.railway.app/api/courses', fetchOptions);
+      const response = await fetch('https://full-stack-react-app-production-13be.up.railway.app/api/courses', fetchOptions);
       if (response.status === 201) {
         console.log('course created successfully');
         navigate("/");

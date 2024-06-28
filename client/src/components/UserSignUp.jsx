@@ -34,7 +34,7 @@ const UserSignUp = () => {
     }
     // POST request
     try {
-      const response = await fetch('http://full-stack-react-app-production-13be.up.railway.app/api/users', fetchOptions);
+      const response = await fetch('https://full-stack-react-app-production-13be.up.railway.app/api/users', fetchOptions);
       // If the user is created successfully, sign in the user
       if (response.status === 201) {
         actions.signIn({ username: user.emailAddress, password: user.password });

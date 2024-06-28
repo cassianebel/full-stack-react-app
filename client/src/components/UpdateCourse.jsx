@@ -13,7 +13,7 @@ const UpdateCourse = () => {
 
   // GET the course data
   useEffect(() => {
-    fetch(`http://full-stack-react-app-production-13be.up.railway.app/api/courses/${id}`)
+    fetch(`https://full-stack-react-app-production-13be.up.railway.app/api/courses/${id}`)
       .then(response => response.json())
       .then(data => setCourse(data))
       .catch(error => {
@@ -53,7 +53,7 @@ const UpdateCourse = () => {
     }
     // PUT request
     try {
-      const response = await fetch(`http://full-stack-react-app-production-13be.up.railway.app/api/courses/${id}`, fetchOptions);
+      const response = await fetch(`https://full-stack-react-app-production-13be.up.railway.app/api/courses/${id}`, fetchOptions);
       if (response.status === 204) {
         console.log('course updated successfully');
         navigate(`/courses/${id}`);
