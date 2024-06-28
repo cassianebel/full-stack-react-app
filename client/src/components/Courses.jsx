@@ -7,7 +7,7 @@ const Courses = () => {
 
   // GET list of courses
   useEffect(() => {
-    fetch('http://localhost:5000/api/courses')
+    fetch('http://full-stack-react-app-production-13be.up.railway.app/api/courses')
       .then(response => response.json())
       .then(data => setCourses(data))
       .catch(error => {

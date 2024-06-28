@@ -12,7 +12,7 @@ const CourseDetail = () => {
 
   // GET the course data
   useEffect(() => {
-    fetch(`http://localhost:5000/api/courses/${id}`)
+    fetch(`http://full-stack-react-app-production-13be.up.railway.app/api/courses/${id}`)
       .then(response => response.json())
       .then(data => setCourse(data))
       .catch(error => {
@@ -36,7 +36,7 @@ const CourseDetail = () => {
     }
     // DELETE request
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/${id}`, fetchOptions);
+      const response = await fetch(`http://full-stack-react-app-production-13be.up.railway.app/api/courses/${id}`, fetchOptions);
       if (response.status === 204) {
         console.log('course deleted successfully');
         navigate(`/`);
